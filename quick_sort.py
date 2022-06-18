@@ -1,19 +1,17 @@
-def quick_sort(vec): 
-    def qs(vec, start, end): 
-        same = [] 
-        lower = [] 
-        greater = [] 
-        if len(vec) > 1: 
-            value = vec[(start + end) // 2]
-            #value = vec[np.random.randint(0, len(vec)-1, 1)] 
-            for element in vec: 
-                if element < value: 
-                    lower.append(element) 
-                elif element > value: 
-                    greater.append(element) 
-                elif element == value: 
-                    same.append(element) 
-            return qs(lower, 0, len(lower) - 1) +  same + qs(greater, 0, len(greater) - 1) 
-        else: 
-            return vec 
-    return qs(vec, 0, len(vec) - 1)
+def partition(l, r, nums):
+    pivot, ptr = nums[r], l
+    for i in range(l, r):
+        if nums[i] <= pivot:
+            nums[i], nums[ptr] = nums[ptr], nums[i]
+            ptr += 1
+    nums[ptr], nums[r] = nums[r], nums[ptr]
+    return ptr
+
+def quicksort(l, r, nums):
+    if len(nums) == 1:
+        return nums
+    if l < r:
+        pi = partition(l, r, nums)
+        quicksort(l, pi-1, nums)
+        quicksort(pi+1, r, nums)
+    return nums
